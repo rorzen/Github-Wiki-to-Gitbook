@@ -109,8 +109,8 @@ if ($allMdFileslistArray > $mdFileListArray) {
 	$content .= '* '.$otherPagesChapterName.'
 ';
 	foreach ($allMdFileslistArray as $key => $fileName) {
-		if (!in_array($fileName, $mdFileListArray)) {
-			$content .= '    * ['.str_ireplace("-", " ", $fileName).']('.$fileName.')
+		if (!in_array($fileName, $mdFileListArray) AND substr($fileName, -3) == ".md") {
+			$content .= '    * ['.str_ireplace("-", " ", str_ireplace(".md", "", $fileName)).']('.$fileName.')
 ';
 		}
 	}
@@ -129,7 +129,7 @@ if ($allMdFileslistArray > $mdFileListArray) {
 <body>
 <h1>Finished ! Your Gitbook and PDF manual has been generated from the Github Wiki.</h1>
 <br />
-<p><?php echo sizeof($mdFileListArray); ?> pages have been converted and imported.</p>
+<p><?php echo sizeof($allMdFileslistArray); ?> pages have been converted and imported.</p>
 <?php
 	if (sizeof($error) > 0) {
 		?><p style="color: red; font-weight: bold;">CAUTION ! The following internal links of the Github wiki sidebar don't correspond to a valid name of a wiki page (case sensitive) :</p>
