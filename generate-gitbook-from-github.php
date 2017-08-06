@@ -146,7 +146,7 @@ if ($allMdFileslistArray > $mdFileListArray) {
 
 <?php
 if ($_SERVER["DOCUMENT_ROOT"] != '') // If the script is executed from the web browser
-	system('mv '.$bookPath.' '.$bookPath.'/_book/'.$pdfBookName.'.pdf '.$bookPath.';'); // otherwise gitbook will overwrite it
+	system('mv '.$bookPath.'/_book/'.$pdfBookName.'.pdf '.$bookPath.';'); // otherwise gitbook will overwrite it
 system('
 	gitbook build '.$bookPath.';
 	cp -r '.$bookPath.'/Github-Wiki-to-Gitbook/gitbook-custom-template/* '.$bookPath.'/_book/gitbook;
@@ -154,6 +154,8 @@ system('
 ');
 if ($_SERVER["DOCUMENT_ROOT"] == '') // If the script is executed from the server
 	system('gitbook pdf '.$bookPath.' '.$bookPath.'/_book/'.$pdfBookName.'.pdf;');
+else // If the script is executed from the web browser
+	system('mv '.$bookPath.'/'.$pdfBookName.'.pdf '.$bookPath.'/_book/;');
 system('rm '.$bookPath.'/*.md;');
 ?>
 
