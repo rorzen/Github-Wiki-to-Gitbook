@@ -13,7 +13,7 @@ $bookPath = "/home/user-www-data/www/your-website";
 $githubWikiUrl = "https://github.com/name/repository.wiki.git";
 $githubWikiName = "co2.wiki";
 
-if ($_SERVER["DOCUMENT_ROOT"] != '') // If the script is executed from a web browser
+if ($_SERVER["DOCUMENT_ROOT"] != '') // If the script is executed from a web browser at this URL : www.yoursite.ext/Github-Wiki-to-Gitbook/generate-gitbook-from-github.php
 	$bookPath = str_ireplace("/_book", "", $_SERVER["DOCUMENT_ROOT"]);
 
 function readContent ($fileName) {
