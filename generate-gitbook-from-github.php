@@ -145,12 +145,16 @@ if ($allMdFileslistArray > $mdFileListArray) {
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
 <?php
+if ($_SERVER["DOCUMENT_ROOT"] != '') // If the script is executed from the web browser
+	system('mv '.$bookPath.' '.$bookPath.'/_book/'.$pdfBookName.'.pdf '.$bookPath.';'); // otherwise gitbook will overwrite it
 system('
-	gitbook pdf '.$bookPath.' '.$bookPath.'/_book/'.$pdfBookName.'.pdf;
 	gitbook build '.$bookPath.';
 	cp -r '.$bookPath.'/Github-Wiki-to-Gitbook/gitbook-custom-template/* '.$bookPath.'/_book/gitbook;
-	rm '.$bookPath.'/*.md;
+	
 ');
+if ($_SERVER["DOCUMENT_ROOT"] == '') // If the script is executed from the server
+	system('gitbook pdf '.$bookPath.' '.$bookPath.'/_book/'.$pdfBookName.'.pdf;');
+system('rm '.$bookPath.'/*.md;');
 ?>
 
 </body>
