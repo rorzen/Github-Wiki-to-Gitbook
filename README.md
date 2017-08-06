@@ -56,7 +56,7 @@ DocumentRoot /var/www/your-website/_book
 
 ### Configure cron
 
-Logued with your www-data account :
+Log with your www-data account :
 ```
 crontab -e
 ```
