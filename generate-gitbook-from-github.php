@@ -125,7 +125,7 @@ foreach ($mdFileListArray as $key => $fileName) {
 <?php
 system('
 	gitbook build '.$bookPath.';
-	cp -r '.$bookPath.'/gitbook-custom-template/* '.$bookPath.'/_book/gitbook;
+	cp -r '.$bookPath.'/Github-Wiki-to-Gitbook/gitbook-custom-template/* '.$bookPath.'/_book/gitbook;
 	gitbook pdf ".$bookPath." ".$bookPath."/_book/communecter-manual.pdf;
 	rm '.$bookPath.'/*.md;
 ');
