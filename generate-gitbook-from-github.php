@@ -10,8 +10,12 @@ Version 0.2
 */
 
 $bookPath = "/home/user-www-data/www/your-website";
-$githubWikiUrl = "https://github.com/name/repository.wiki.git";
-$githubWikiName = "co2.wiki";
+$githubWikiRepository = "https://github.com/name/repository.wiki.git";
+$githubWikiURL = "https://github.com/name/repository/wiki/";
+$githubWikiName = "repository.wiki";
+$otherPagesChapterName = "Others pages";
+$pdfBookName = "book"; // Generated PDF book name
+
 
 if ($_SERVER["DOCUMENT_ROOT"] != '') // If the script is executed from a web browser at this URL : www.yoursite.ext/Github-Wiki-to-Gitbook/generate-gitbook-from-github.php
 	$bookPath = str_ireplace("/_book", "", $_SERVER["DOCUMENT_ROOT"]);
@@ -74,7 +78,6 @@ function convertSyntax ($content, $isSummary = false) {
 				$newContent .= '*'.$value;
 		}
 	}
-
 	return $newContent;
 }
 
@@ -93,8 +96,27 @@ function convertFile ($from, $to, $isSummary = false) {
 system('git -C '.$bookPath.'/'.$githubWikiName.' pull;');
 convertFile ("_Sidebar.md", "SUMMARY.md", true);
 convertFile ("Home.md", "README.md");
-foreach ($mdFileListArray as $key => $fileName) {
+$allMdFileslistArray = array_diff(scandir($bookPath."/".$githubWikiName), array('.', '..'));
+foreach ($allMdFileslistArray as $key => $fileName) {
 	convertFile ($fileName, $fileName);
+}
+
+// Adding MdFiles not in the Summary
+if ($allMdFileslistArray > $mdFileListArray) {
+	$handle = fopen($bookPath.'/SUMMARY.md', "r");
+	$content = fread($handle, filesize($bookPath.'/SUMMARY.md'));
+	fclose($handle);
+	$content .= '* '.$otherPagesChapterName.'
+';
+	foreach ($allMdFileslistArray as $key => $fileName) {
+		if (!in_array($fileName, $mdFileListArray)) {
+			$content .= '    * ['.str_ireplace("-", " ", $fileName).']('.$fileName.')
+';
+		}
+	}
+	$handle = fopen($bookPath.'/SUMMARY.md', "w");
+	fwrite($handle, $content);
+	fclose($handle);
 }
 ?>
 
@@ -126,7 +148,7 @@ foreach ($mdFileListArray as $key => $fileName) {
 system('
 	gitbook build '.$bookPath.';
 	cp -r '.$bookPath.'/Github-Wiki-to-Gitbook/gitbook-custom-template/* '.$bookPath.'/_book/gitbook;
-	gitbook pdf ".$bookPath." ".$bookPath."/_book/communecter-manual.pdf;
+	gitbook pdf '.$bookPath.' '.$bookPath.'/_book/'.$pdfBookName.'.pdf;
 	rm '.$bookPath.'/*.md;
 ');
 ?>
