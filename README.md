@@ -63,3 +63,7 @@ crontab -e
 And add :
 
 `15 3  * *  * php /var/www/wiki.communecter.org/Github-Wiki-to-Gitbook/generate-gitbook-from-github.php`
+
+## Templating
+
+Edit Github-Wiki-to-Gitbook/gitbook-custom-template/style.css and Github-Wiki-to-Gitbook/gitbook-custom-template/images/ pictures
