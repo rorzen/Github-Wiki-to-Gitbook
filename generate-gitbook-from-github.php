@@ -146,9 +146,9 @@ if ($allMdFileslistArray > $mdFileListArray) {
 
 <?php
 system('
+	gitbook pdf '.$bookPath.' '.$bookPath.'/_book/'.$pdfBookName.'.pdf;
 	gitbook build '.$bookPath.';
 	cp -r '.$bookPath.'/Github-Wiki-to-Gitbook/gitbook-custom-template/* '.$bookPath.'/_book/gitbook;
-	gitbook pdf '.$bookPath.' '.$bookPath.'/_book/'.$pdfBookName.'.pdf;
 	rm '.$bookPath.'/*.md;
 ');
 ?>
