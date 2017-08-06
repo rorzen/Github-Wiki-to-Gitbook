@@ -54,6 +54,12 @@ gitbook init
 DocumentRoot /var/www/your-website/_book
 ```
 
+### Test
+
+```
+php ./Github-Wiki-to-Gitbook/generate-gitbook-from-github.php
+```
+
 ### Configure cron
 
 Log with your www-data account :
