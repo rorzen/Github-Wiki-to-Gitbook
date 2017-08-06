@@ -6,9 +6,7 @@ Automaticaly synchronize a Gitbook website from a Github Wiki repository
 
 ## Important instructions when editing your Github Wiki
 
-When Gitbook generates the wiki pages, it first get the list of the pages from the sidebar menu (on the right on Github, called SUMMARY on Github).
-
-So you must specify all your wiki pages in this sidebar using \[\[internal links\]\] exacly like that :
+So you must specify your wiki pages in this sidebar menu (on the right on Github, called SUMMARY on Github) using \[\[internal links\]\] exacly like that :
 ```
 ### [[Title 1]]
 * [[Page 1]]
@@ -19,7 +17,7 @@ So you must specify all your wiki pages in this sidebar using \[\[internal links
 * [[Page 4]]
 ```
 
-The name of your wiki pages mustn't contain special characters like "?" ou "(".
+The name of your wiki pages mustn't contain special characters like "?" ou "(" and all internal links in the pages must be written like that : \[\[internal link\]\].
 
 [Gitbook reference manual](https://toolchain.gitbook.com)
 
@@ -33,6 +31,9 @@ git clone https://github.com/marc-fun/Github-Wiki-to-Gitbook.git
 npm install gitbook-cli
 gitbook init
 ```
+
+### Edit Github-Wiki-to-Gitbook/generate-gitbook-from-github.php file
+And update the variables
 
 ### Create the file /var/www/your-website/book.json containing :
 ```
