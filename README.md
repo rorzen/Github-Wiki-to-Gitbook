@@ -23,16 +23,21 @@ The name of your wiki pages mustn't contain special characters like "?" ou "(" a
 
 ## Installation
 
-### Log to your server with you www-data account and execute theses commands adapting NAME and REPOSITORY
+### Install markdown
 ```
-cd /var/www/your-website
+sudo apt install markdown
+``
+
+### Log to your server with you user account autorized with the www-data group and execute theses commands adapting NAME and REPOSITORY
+```
+cd /home/user/www/your-website
 git clone https://github.com/NAME/REPOSITORY.wiki.git
 git clone https://github.com/marc-fun/Github-Wiki-to-Gitbook.git
 npm install gitbook-cli
 gitbook init
 ```
 
-### Edit Github-Wiki-to-Gitbook/generate-gitbook-from-github.php file
+### Edit Github-Wiki-to-Gitbook/config.inc.php file
 And update the variables
 
 ### Create the file /var/www/your-website/book.json containing :

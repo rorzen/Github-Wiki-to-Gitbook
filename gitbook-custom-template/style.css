@@ -5,15 +5,23 @@
  * Some variables and mixins from Bootstrap (Apache 2 license).
  */.link-inherit,.link-inherit:focus,.link-inherit:hover{color:inherit}.fa,.fa-stack{display:inline-block}
 
+.book .book-header .btn:hover {
+    color: #fff !important;
+}
+
 .book .book-summary ul.summary {
 	background: #c5203b !important;
  }
 .book .book-summary ul.summary > li.chapter:first-child a {
-	background: #c5203b url("/gitbook/images/co-wiki.png") no-repeat 15px 10px !important;
+	background: #c5203b url("images/co-wiki.png") no-repeat 15px 10px !important;
 	display: block;
 	height: 92px;
 	text-indent: -200px;
 }
+.book .book-summary ul.summary li b {
+	display: none;
+}
+
 .book .book-summary ul.summary li a, .book .book-summary ul.summary li span {
 	color: #fff !important;
 	padding: 4px 15px !important;
@@ -30,6 +38,7 @@
 	font-weight: bold !important;
 	background-color: #87182b !important;
 	padding: 8px 15px !important;
+	margin-top: 10px !important;
 	border-top: solid !important;
 	border-bottom: solid !important;
 	border-width: 1px !important;
@@ -45,7 +54,13 @@
     color: #c5203b;
 }
 .book .book-body .page-wrapper .page-inner section, .book .book-body .page-wrapper {
-    background: #F3F2F9 !important;
+    background: #F9F9F9 !important;
+}
+
+.book .book-body .page-wrapper .page-inner footer {
+    background-color: #E3E3E3;
+    padding: 15px;
+    margin-top: 50px;
 }
 
  /*!

@@ -5,16 +5,11 @@ Marc Farré
 https://marc.fun
 
 https://github.com/marc-fun/Github-Wiki-to-Gitbook
-Version 0.2
-2017-08-06
+Version 0.3
+2017-08-25
 */
 
-$bookPath = "/home/user-www-data/www/your-website";
-$githubWikiRepository = "https://github.com/name/repository.wiki.git";
-$githubWikiURL = "https://github.com/name/repository/wiki/";
-$githubWikiName = "repository.wiki";
-$otherPagesChapterName = "Others pages";
-$pdfBookName = "book"; // Generated PDF book name
+require_once(dirname(__FILE__) . "/config.inc.php");
 
 
 if ($_SERVER["DOCUMENT_ROOT"] != '') // If the script is executed from a web browser at this URL : www.yoursite.ext/Github-Wiki-to-Gitbook/generate-gitbook-from-github.php
@@ -82,7 +77,7 @@ function convertSyntax ($content, $isSummary = false) {
 }
 
 function convertFile ($from, $to, $isSummary = false) {
-	global $bookPath, $githubWikiName, $error;
+	global $bookPath, $editLinkName, $githubWikiName, $githubWikiURL, $error;
 
 	if (file_exists($bookPath."/".$githubWikiName."/".$from)) {
 		$content = readContent($bookPath."/".$githubWikiName."/".$from);
@@ -96,22 +91,22 @@ function convertFile ($from, $to, $isSummary = false) {
 system('git -C '.$bookPath.'/'.$githubWikiName.' pull;');
 convertFile ("_Sidebar.md", "SUMMARY.md", true);
 convertFile ("Home.md", "README.md");
-$allMdFileslistArray = array_diff(scandir($bookPath."/".$githubWikiName), array('.', '..'));
+$allMdFileslistArray = array_diff(scandir($bookPath."/".$githubWikiName), array('.', '..', '_Sidebar.md', 'SUMMARY.md', 'Home.md', 'README.md'));
 foreach ($allMdFileslistArray as $key => $fileName) {
 	convertFile ($fileName, $fileName);
 }
 
-// Adding MdFiles not in the Summary
+// Adding MdFiles not present in the Summary
 if ($allMdFileslistArray > $mdFileListArray) {
 	$handle = fopen($bookPath.'/SUMMARY.md', "r");
 	$content = fread($handle, filesize($bookPath.'/SUMMARY.md'));
 	fclose($handle);
-	$content .= '* '.$otherPagesChapterName.'
-';
+	$content .= '
+* '.$otherPagesChapterName;
 	foreach ($allMdFileslistArray as $key => $fileName) {
 		if (!in_array($fileName, $mdFileListArray) AND substr($fileName, -3) == ".md") {
-			$content .= '    * ['.str_ireplace("-", " ", str_ireplace(".md", "", $fileName)).']('.$fileName.')
-';
+			$content .= '
+    * ['.str_ireplace("-", " ", str_ireplace(".md", "", $fileName)).']('.$fileName.')';
 		}
 	}
 	$handle = fopen($bookPath.'/SUMMARY.md', "w");
@@ -157,6 +152,34 @@ if ($_SERVER["DOCUMENT_ROOT"] == '') // If the script is executed from the serve
 else // If the script is executed from the web browser
 	system('mv '.$bookPath.'/'.$pdfBookName.'.pdf '.$bookPath.'/_book/;');
 system('rm '.$bookPath.'/*.md;');
+
+
+// Adding edit button and footer
+if (file_exists($bookPath."/".$githubWikiName."/_Footer.md"))
+	$footerText = shell_exec("markdown -b ".$bookPath."/".$githubWikiName."/_Footer.md");
+else
+	$footerText = "";
+$allGitbookFileslistArray = scandir($bookPath."/_book");
+foreach ($allGitbookFileslistArray as $key => $fileName) {
+	if (substr($fileName, -5) == ".html") {
+		$content = readContent($bookPath."/_book/".$fileName);
+		if ($fileName == "index.html")
+			$pageName = "Home";
+		else
+			$pageName = str_ireplace(".html", "", $fileName);
+		$contentConverted = str_ireplace(
+			'</section>',
+			'<footer>'.$footerText.'</footer></section>',
+			str_ireplace(
+				'<!-- Title -->',
+				'<a aria-label="" href="'.$githubWikiURL.'/'.$pageName.'/_edit" class="btn pull-left"><i class="fa fa-pencil"></i></a>',
+				$content)
+			);
+		writeContent ($bookPath."/_book/".$fileName, $contentConverted);
+	}
+}
+
+
 ?>
 
 </body>
