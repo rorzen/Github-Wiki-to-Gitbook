@@ -26,9 +26,10 @@ The name of your wiki pages mustn't contain special characters like "?" ou "(" a
 ### Install markdown
 ```
 sudo apt install markdown
-``
+```
 
-### Log to your server with you user account autorized with the www-data group and execute theses commands adapting NAME and REPOSITORY
+### Install Gitbook
+Log to your server with you user account autorized with the www-data group and execute theses commands adapting NAME and REPOSITORY :
 ```
 cd /home/user/www/your-website
 git clone https://github.com/NAME/REPOSITORY.wiki.git
@@ -37,10 +38,10 @@ npm install gitbook-cli
 gitbook init
 ```
 
-### Edit Github-Wiki-to-Gitbook/config.inc.php file
-And update the variables
+### Configure
+Edit Github-Wiki-to-Gitbook/config.inc.php file and update the variables
 
-### Create the file /var/www/your-website/book.json containing :
+Create the file /var/www/your-website/book.json containing :
 ```
 { 
   "gitbook": "2.x.x",
@@ -54,8 +55,7 @@ And update the variables
 }
 ```
 
-### Configure Apache
-
+Configure Apache for your domain name :
 ```
 DocumentRoot /var/www/your-website/_book
 ```
@@ -66,7 +66,7 @@ DocumentRoot /var/www/your-website/_book
 php ./Github-Wiki-to-Gitbook/generate-gitbook-from-github.php
 ```
 
-### Configure cron
+### Update wiki automaticaly with cron
 
 Log with your www-data account :
 ```
