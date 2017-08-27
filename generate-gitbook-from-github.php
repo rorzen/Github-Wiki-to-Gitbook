@@ -48,18 +48,12 @@ function convertSyntax ($content, $isSummary = false) {
 
 	if ($isSummary) {
 		$newContent = str_ireplace("* [", "    * [", $newContent);
-		$newContent = str_ireplace('
-######', "$$$", $newContent);
-		$newContent = str_ireplace('
-#####', "$$$", $newContent);
-		$newContent = str_ireplace('
-####', "$$$", $newContent);
-		$newContent = str_ireplace('
-###', "$$$", $newContent);
-		$newContent = str_ireplace('
-##', "$$$", $newContent);
-		$newContent = str_ireplace('
-#', "$$$", $newContent);
+		$newContent = str_ireplace('###### ', "$$$ ", $newContent);
+		$newContent = str_ireplace('##### ', "$$$ ", $newContent);
+		$newContent = str_ireplace('#### ', "$$$ ", $newContent);
+		$newContent = str_ireplace('### ', "$$$ ", $newContent);
+		$newContent = str_ireplace('## ', "$$$ ", $newContent);
+		$newContent = str_ireplace('# ', "$$$ ", $newContent);
 
 		$contentArray = explode('$$$', $newContent);
 		$newContent = '# Sommaire
