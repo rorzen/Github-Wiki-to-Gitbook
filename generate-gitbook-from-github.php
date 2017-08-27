@@ -166,7 +166,7 @@ foreach ($allGitbookFileslistArray as $key => $fileName) {
 			'<footer>'.$footerText.'</footer></section>',
 			str_ireplace(
 				'<!-- Title -->',
-				'<a aria-label="" href="'.$githubWikiURL.'/'.$pageName.'/_edit" class="btn pull-left"><i class="fa fa-pencil"></i></a>',
+				'<a aria-label="" href="'.$githubWikiURL.'/'.$pageName.'/_edit" target="_blank" class="btn pull-left"><i class="fa fa-pencil"></i></a>',
 				$content)
 			);
 		writeContent ($bookPath."/_book/".$fileName, $contentConverted);
