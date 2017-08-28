@@ -1,0 +1,75 @@
+.book .book-header .btn:hover {
+    color: #fff !important;
+}
+
+.book .book-summary nav .btn.pull-left {
+	color: #FFF;
+	display: block;
+	position: absolute;
+	top: 5px;
+	right: 25px;
+	z-index: 1000;
+}
+
+.book .book-summary ul.summary {
+	background: #c5203b !important;
+ }
+.book .book-summary ul.summary > li.chapter:first-child a {
+	background: #c5203b url("images/co-wiki.png") no-repeat 15px 10px !important;
+	display: block;
+	height: 92px;
+	text-indent: -200px;
+}
+.book .book-summary ul.summary li b {
+	display: none;
+}
+
+.book .book-summary ul.summary li a, .book .book-summary ul.summary li span {
+	color: #fff !important;
+	padding: 4px 15px !important;
+}
+.book .book-summary ul.summary li a:hover, .book .book-summary ul.summary li.active > a {
+	color: #fff !important;
+	background: #364d58 !important;
+}
+.book .book-summary ul.summary li span {
+	opacity: 1 !important;
+	filter: alpha(opacity=100) !important;
+}
+.book .book-summary ul.summary > li > a, .book .book-summary ul.summary > li > span  {
+	font-weight: bold !important;
+	background-color: #87182b !important;
+	padding: 8px 15px !important;
+	margin-top: 10px !important;
+	border-top: solid !important;
+	border-bottom: solid !important;
+	border-width: 1px !important;
+	border-color: #394D57 !important;
+}
+.book .book-summary ul.summary > li:first-child > a {
+	border: none !important;
+}
+.book .book-header {
+	background: #394D57 !important;
+}
+
+.book .book-header i.fa-facebook, .book .book-header i.fa-twitter {
+	display: none;	
+}
+
+.book .book-body .page-wrapper .page-inner section.normal h1 {
+    color: #c5203b;
+}
+.book .book-body .page-wrapper .page-inner section, .book .book-body .page-wrapper {
+    background: #F9F9F9 !important;
+}
+
+.book .book-body .page-wrapper .page-inner footer {
+    background-color: #E3E3E3;
+    padding: 15px;
+    margin-top: 50px;
+}
+
+.book .book-body .page-wrapper .page-inner footer .btn.pull-left {
+    margin-right: 10px;
+}
