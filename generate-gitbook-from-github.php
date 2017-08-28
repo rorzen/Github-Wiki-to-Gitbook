@@ -177,8 +177,10 @@ foreach ($allGitbookFileslistArray as $key => $fileName) {
 			'<nav role="navigation"><a aria-label="" href="'.$githubWikiURL.'/_Sidebar/_edit" target="_blank" class="btn pull-left"><i class="fa fa-pencil"></i></a>',
 			$content);
 		$content = str_ireplace(
-			'Published with GitBook',
-			'Published with Gitub Wiki to Gitbook',
+			' GitBook
+                </a>',
+			' Github Wiki to Gitbook
+                </a>',
 			$content);
 		$content = str_ireplace(
 			'https://www.gitbook.com',
