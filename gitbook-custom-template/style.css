@@ -9,6 +9,15 @@
     color: #fff !important;
 }
 
+.book .book-summary nav .btn.pull-left {
+	color: #FFF;
+	display: block;
+	position: absolute;
+	top: 5px;
+	right: 25px;
+	z-index: 1000;
+}
+
 .book .book-summary ul.summary {
 	background: #c5203b !important;
  }
@@ -50,6 +59,11 @@
 .book .book-header {
 	background: #394D57 !important;
 }
+
+.book .book-header i.fa-facebook, .book .book-header i.fa-twitter {
+	display: none;	
+}
+
 .book .book-body .page-wrapper .page-inner section.normal h1 {
     color: #c5203b;
 }
@@ -62,6 +76,11 @@
     padding: 15px;
     margin-top: 50px;
 }
+
+.book .book-body .page-wrapper .page-inner footer .btn.pull-left {
+    margin-right: 10px;
+}
+
 
  /*!
  *  Font Awesome 4.1.0 by @davegandy - http://fontawesome.io - @fontawesome
