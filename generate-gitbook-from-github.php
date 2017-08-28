@@ -5,8 +5,8 @@ Marc Farré
 https://marc.fun
 
 https://github.com/marc-fun/Github-Wiki-to-Gitbook
-Version 0.3
-2017-08-25
+Version 0.4
+2017-08-28
 */
 
 require_once(dirname(__FILE__) . "/config.inc.php");
@@ -96,12 +96,11 @@ if ($allMdFileslistArray > $mdFileListArray) {
 	$content = fread($handle, filesize($bookPath.'/SUMMARY.md'));
 	fclose($handle);
 	$content .= '
-* '.$otherPagesChapterName;
-	foreach ($allMdFileslistArray as $key => $fileName) {
-		if (!in_array($fileName, $mdFileListArray) AND substr($fileName, -3) == ".md") {
+* '.$otherPagesChapterLabel;
+	foreach (array_diff($allMdFileslistArray, $mdFileListArray, array( "_Footer.md")) as $key => $fileName) {
+		if (substr($fileName, -3) == ".md")
 			$content .= '
     * ['.str_ireplace("-", " ", str_ireplace(".md", "", $fileName)).']('.$fileName.')';
-		}
 	}
 	$handle = fopen($bookPath.'/SUMMARY.md', "w");
 	fwrite($handle, $content);
@@ -148,7 +147,7 @@ else // If the script is executed from the web browser
 system('rm '.$bookPath.'/*.md;');
 
 
-// Adding edit button and footer
+// Post treatments
 if (file_exists($bookPath."/".$githubWikiName."/_Footer.md"))
 	$footerText = shell_exec("markdown -b ".$bookPath."/".$githubWikiName."/_Footer.md");
 else
@@ -161,15 +160,31 @@ foreach ($allGitbookFileslistArray as $key => $fileName) {
 			$pageName = "Home";
 		else
 			$pageName = str_ireplace(".html", "", $fileName);
-		$contentConverted = str_ireplace(
+		$content = str_ireplace(
+			'href="gitbook/style.css">',
+			'href="gitbook/style.css"> <link rel="stylesheet" href="gitbook/custom-style.css">',
+			$content);
+		$content = str_ireplace(
 			'</section>',
-			'<footer>'.$footerText.'</footer></section>',
-			str_ireplace(
-				'<!-- Title -->',
-				'<a aria-label="" href="'.$githubWikiURL.'/'.$pageName.'/_edit" target="_blank" class="btn pull-left"><i class="fa fa-pencil"></i></a>',
-				$content)
-			);
-		writeContent ($bookPath."/_book/".$fileName, $contentConverted);
+			'<footer><a aria-label="" href="'.$githubWikiURL.'/_Footer/_edit" target="_blank" class="btn pull-left"><i class="fa fa-pencil"></i></a> '.$footerText.'</footer></section>',
+			$content);
+		$content = str_ireplace(
+			'<!-- Title -->',
+			'<a aria-label="" href="'.$githubWikiURL.'/'.$pageName.'/_edit" target="_blank" class="btn pull-left"><i class="fa fa-pencil"></i></a><!-- Title -->',
+			$content);
+		$content = str_ireplace(
+			'<nav role="navigation">',
+			'<nav role="navigation"><a aria-label="" href="'.$githubWikiURL.'/_Sidebar/_edit" target="_blank" class="btn pull-left"><i class="fa fa-pencil"></i></a>',
+			$content);
+		$content = str_ireplace(
+			'Published with GitBook',
+			'Published with Gitub Wiki to Gitbook',
+			$content);
+		$content = str_ireplace(
+			'https://www.gitbook.com',
+			'https://github.com/marc-fun/Github-Wiki-to-Gitbook',
+			$content);
+		writeContent ($bookPath."/_book/".$fileName, $content);
 	}
 }
 
